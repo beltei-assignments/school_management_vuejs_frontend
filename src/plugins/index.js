@@ -7,11 +7,12 @@
 import router from '@/router'
 import pinia from '@/stores'
 // Plugins
-import vuetify from './vuetify'
+import { rulesPlugin, vuetify } from './vuetify'
 
 export function registerPlugins (app) {
   app
     .use(vuetify)
+    .use(rulesPlugin, vuetify.locale)
     .use(router)
     .use(pinia)
 }
