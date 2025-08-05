@@ -41,11 +41,11 @@
 </template>
 
 <script setup>
-  import { useClassStore } from '@/stores/index.js'
+  import { useSubjectStore } from '@/stores/index.js'
 
   import { FORM_RULES } from '@/validators/form-rules.js'
 
-  const { createClass, updateClass } = useClassStore()
+  const { createSubject, updateSubject } = useSubjectStore()
 
   const emit = defineEmits(['update:modelValue', 'load'])
   const props = defineProps({
@@ -67,7 +67,7 @@
     name: props.form?.name || '',
   })
   const isCreated = ref(props.form ? false : true)
-  const title = ref(isCreated.value ? 'Create new class' : 'Edit class')
+  const title = ref(isCreated.value ? 'Create new subject' : 'Edit subject')
 
   // method
   const close = () => {
@@ -79,7 +79,7 @@
     if (!valid) return
 
     try {
-      await (isCreated.value ? createClass(form.value) : updateClass(props.form.id, form.value))
+      await (isCreated.value ? createSubject(form.value) : updateSubject(props.form.id, form.value))
       instance.root.$notif('Successful saved', { type: 'success' })
 
       emit('load')

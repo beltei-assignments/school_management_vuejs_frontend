@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <div>
-      <BaseHeader title="Class management">
+      <BaseHeader title="Subject management">
         <v-btn
           v-if="isFilter"
           class="text-none mr-2"
@@ -66,7 +66,7 @@
       <DataTable
         v-model:options="options"
         :headers="headers"
-        :items="classes"
+        :items="subjects"
         :items-length="totalCount"
         :items-per-page-options="[10, 20, 50, 100]"
         @update:options="search"
@@ -89,7 +89,7 @@
     </div>
   </div>
 
-  <ClassFormDialog
+  <SubjectFormDialog
     v-if="isShowDialog"
     v-model="isShowDialog"
     :form="editItem"
@@ -98,12 +98,12 @@
 </template>
 
 <script setup>
-  import ClassFormDialog from '@/components/ClassFormDialog.vue'
-  import { useClassStore } from '@/stores'
-  const { fetchClasses, deleteClass } = useClassStore()
+  import SubjectFormDialog from '@/components/SubjectFormDialog.vue'
+  import { useSubjectStore } from '@/stores'
+  const { fetchSubjects, deleteSubject } = useSubjectStore()
 
   const instance = getCurrentInstance()
-  const { classes } = storeToRefs(useClassStore())
+  const { subjects } = storeToRefs(useSubjectStore())
   const headers = ref([
     {
       title: 'Identifier',
@@ -111,11 +111,6 @@
       sortable: false,
     },
     { title: 'Name', key: 'name', sortable: false },
-    // {
-    //   title: 'Date creation',
-    //   key: 'createdAt',
-    //   value: ({ createdAt }) => format(createdAt, 'dd-MM-yyyy HH:mm'),
-    // },
     { title: '', key: 'actions', sortable: false, align: 'end' },
   ])
   const filter = ref({
@@ -134,7 +129,7 @@
 
   const search = async () => {
     const { page, itemsPerPage: limit } = options.value
-    const { count } = await fetchClasses({ page, limit, ...filter.value })
+    const { count } = await fetchSubjects({ page, limit, ...filter.value })
 
     totalCount.value = count
   }
@@ -158,7 +153,7 @@
       title: 'Confirm delete',
       msg: 'Are you sure to delete?',
       agree: async () => {
-        await deleteClass(id)
+        await deleteSubject(id)
         instance.root.$notif('Successful deleted', { type: 'success' })
         await search()
       },

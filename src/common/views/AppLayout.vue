@@ -25,6 +25,11 @@
       icon: 'mdi-home-city',
     },
     {
+      link: '/subject',
+      title: 'Subject',
+      icon: 'mdi-book-open-variant-outline',
+    },
+    {
       link: '/user',
       title: 'User',
       icon: 'mdi-account-group-outline',

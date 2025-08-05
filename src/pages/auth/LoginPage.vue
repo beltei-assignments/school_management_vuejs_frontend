@@ -12,6 +12,7 @@
             v-model="credentials.email"
             autocomplete="username"
             class="text-black placeholer-capitalize"
+            clearable
             density="comportable"
             name="username"
             placeholder="Email"
@@ -35,6 +36,7 @@
             :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
             autocomplete="current-password"
             class="text-black"
+            clearable
             density="comportable"
             name="password"
             placeholder="Password"
