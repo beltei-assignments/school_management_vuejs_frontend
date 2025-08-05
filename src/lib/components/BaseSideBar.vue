@@ -6,16 +6,11 @@
   >
     <v-list>
       <v-list-item
-        prepend-avatar="https://randomuser.me/api/portraits/men/85.jpg"
-        title="John Leider"
+        :title="appTitile"
       >
-        <!-- <template #append>
-          <v-btn
-            icon="mdi-chevron-left"
-            variant="text"
-            @click.stop="rail = !rail"
-          />
-        </template> -->
+        <template #prepend>
+          <v-img class="mr-3" :src="logoPath" :width="26" />
+        </template>
       </v-list-item>
     </v-list>
 
@@ -35,7 +30,11 @@
 </template>
 
 <script setup>
-  import { defineProps, ref } from 'vue'
+  import propertyLogo from '@/assets/images/real-estate-logo.jpg'
+  import schoolLogo from '@/assets/images/school-logo.png'
+  import { useAppStore } from '@/stores'
+
+  const { isSchoolApp, appTitile } = storeToRefs(useAppStore())
 
   const props = defineProps({
     menus: {
@@ -49,18 +48,11 @@
     },
   })
   const drawer = ref(true)
-  // const menus = ref(true)
-  // const rail = ref(true)
+  const logoPath = computed(() => {
+    if (isSchoolApp.value) {
+      return schoolLogo
+    }
 
+    return propertyLogo
+  })
 </script>
-
-<!-- <script setup>
-  import { defineProps } from 'vue'
-  defineProps(['menus'])
-</script>
-
-<style scoped>
-  .label {
-    font-size: 12px;
-  }
-</style> -->

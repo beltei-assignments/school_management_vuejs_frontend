@@ -4,8 +4,11 @@
 
     <div class="login-form d-flex justify-center align-center bg-white">
       <v-form ref="form" class="form w-100 px-16 py-10">
+        <div class="d-flex justify-center mb-4">
+          <v-img :height="160" src="@/assets/images/school-logo.png" />
+        </div>
         <div class="d-flex justify-center mb-12">
-          <v-img :height="160" src="@/assets/images/logo.png" />
+          <p>Welcome to BIU System</p>
         </div>
         <div class="mt-4">
           <v-text-field
@@ -140,7 +143,7 @@
 
   .bg-img {
     width: 60%;
-    background-image: url('@/assets/images/login_bg.jpg');
+    background-image: url('@/assets/images/school-bg.jpg');
     background-size: cover;
     filter: brightness(80%);
     background-position: center;
