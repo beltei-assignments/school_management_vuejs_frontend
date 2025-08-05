@@ -13,7 +13,7 @@
             autocomplete="username"
             class="text-black placeholer-capitalize"
             clearable
-            density="comportable"
+            density="comfortable"
             name="username"
             placeholder="Email"
             prepend-inner-icon="mdi-email-outline"
@@ -37,7 +37,7 @@
             autocomplete="current-password"
             class="text-black"
             clearable
-            density="comportable"
+            density="comfortable"
             name="password"
             placeholder="Password"
             prepend-inner-icon="mdi-lock-outline"

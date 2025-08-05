@@ -5,6 +5,11 @@
       :headers="props.headers"
       :items="$attrs.items"
     >
+
+      <template v-for="header in props.headers" :key="header.key" #[`item.${header.key}`]="{ item }">
+        <p>{{ _.get(item, header.key) }}</p>
+        <slot :item="item" :name="`item.${header.key}`" />
+      </template>
       <template #[`item.actions`]="{ item }">
         <slot :item="item" name="item.actions" />
       </template>
@@ -13,6 +18,7 @@
 </template>
 
 <script setup>
+  import _ from 'lodash'
   import { defineProps } from 'vue'
   const props = defineProps({
     headers: {
