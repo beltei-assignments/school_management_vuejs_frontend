@@ -6,11 +6,12 @@
 </template>
 
 <script setup>
-  import { getCurrentInstance, onMounted, ref } from 'vue'
-  import { RouterView } from 'vue-router'
+  import { useAppStore } from '@/stores'
   import AppConfirm from './lib/components/AppConfirm.vue'
   import AppDelay from './lib/components/AppDelay.vue'
   import Notif from './lib/components/AppNotification.vue'
+
+  const { setIsSchoolApp } = useAppStore()
 
   // Variables
   const notif = ref('')
@@ -20,6 +21,9 @@
   onMounted(() => {
     rootInstance.root.$notif = notif.value.pushNotif
     rootInstance.root.$confirm = confirm.value.open
+
+    const isSchoolApp = JSON.parse(localStorage.getItem('isSchoolApp')) || false
+    setIsSchoolApp(isSchoolApp)
   })
 </script>
 

@@ -20,10 +20,10 @@
   import schoolLogo from '@/assets/images/school-logo.png'
   import { useAppStore } from '@/stores'
 
-  const { isSchoolApp, appTitile } = storeToRefs(useAppStore())
+  const { isSchoolAppComputed, appTitile } = storeToRefs(useAppStore())
 
   const logoPath = computed(() => {
-    if (isSchoolApp.value) {
+    if (isSchoolAppComputed.value) {
       return schoolLogo
     }
 

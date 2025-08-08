@@ -27,13 +27,6 @@
         </div>
 
         <div>
-          <!-- <div class="text-medium-emphasis d-flex align-center justify-end">
-            <span
-              class="cursor text-primary"
-              @click="$router.push({ name: 'ForgotPasswordView' })"
-            >
-              {{ $t('app.auth.forgot.forgot') }}</span>
-          </div> -->
           <v-text-field
             v-model="credentials.password"
             :append-inner-icon="showPassword ? 'mdi-eye-off' : 'mdi-eye'"
@@ -69,17 +62,12 @@
 </template>
 
 <script setup>
-  // import { storeToRefs } from 'pinia'
-  import { computed, getCurrentInstance, reactive, ref } from 'vue'
-  import { useRouter } from 'vue-router'
-  // import { ROLE_NAME } from '@/constants/index.js'
-  // import { useCookieStore } from '@/stores/cookie'
-  // import { useUserStore } from '@/stores/user'
-  import http from '@/utils/http.js'
+  import { useAppStore, useAuthStore } from '@/stores'
+
+  const { login } = useAuthStore()
+  const { setIsSchoolApp } = useAppStore()
 
   const instance = getCurrentInstance()
-  // const { user } = storeToRefs(useUserStore())
-  // const cookieStore = useCookieStore()
   const router = useRouter()
   const form = ref(null)
   const showPassword = ref(false)
@@ -88,13 +76,6 @@
     email: '',
     password: '',
   })
-  // const defaultRoute = reactive({
-  //   [ROLE_NAME.SUPER_ADMIN]: 'HomeView',
-  //   [ROLE_NAME.ADMIN]: 'HomeView',
-  //   [ROLE_NAME.CASHIER]: 'OrdersView',
-  //   [ROLE_NAME.CHEF]: 'ChefView',
-  //   [ROLE_NAME.WAITER]: 'WaiterView',
-  // })
   const rules = computed(() => {
     return {
       email: [v => !!v || 'Please enter your email'],
@@ -108,19 +89,11 @@
 
     try {
       loading.value = true
-      const res = await http.post('auth/login', credentials)
-      console.log(res)
-      // const { token, data } = res.data
-      // const { user: userData, role, permissions } = data
+      const { data } = await login(credentials)
+      localStorage.setItem('user', JSON.stringify(data.user))
+      localStorage.setItem('isSchoolApp', false)
+      setIsSchoolApp(false)
 
-      // cookieStore.setCookie('token', token, 30)
-      // cookieStore.setCookie('user', userData, 30)
-      // cookieStore.setCookie('role', role, 30)
-      // cookieStore.setCookie('permissions', permissions, 30)
-      // user.value.data = userData
-      // user.value.token = token
-      // user.value.role = role
-      // user.value.permissions = permissions
       instance.root.$notif('Login successful', { type: 'success' })
       router.push({ name: 'Home' })
     } catch (error) {

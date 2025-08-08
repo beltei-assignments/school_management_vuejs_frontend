@@ -6,6 +6,9 @@ export const useAppStore = defineStore('app', {
     isSchoolApp: false,
   }),
   getters: {
+    isSchoolAppComputed (state) {
+      return state.isSchoolApp
+    },
     appTitile (state) {
       if (state.isSchoolApp) {
         return 'BIU System'
@@ -46,6 +49,11 @@ export const useAppStore = defineStore('app', {
           icon: 'mdi-account-group-outline',
         },
       ]
+    },
+  },
+  actions: {
+    setIsSchoolApp (isSchoolApp) {
+      this.isSchoolApp = isSchoolApp
     },
   },
 })
