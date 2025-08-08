@@ -13,6 +13,8 @@ declare module 'vue' {
     copy: typeof import('./src/components/SubjectFormDialog copy.vue')['default']
     DataTable: typeof import('./src/components/DataTable.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    OwnerFormDialog: typeof import('./src/components/property/OwnerFormDialog.vue')['default']
+    PropertyFormDialog: typeof import('./src/components/PropertyFormDialog.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SubjectFormDialog: typeof import('./src/components/SubjectFormDialog.vue')['default']

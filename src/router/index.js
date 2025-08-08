@@ -15,6 +15,12 @@ const router = createRouter({
           component: () => import('@/pages/index.vue'),
         },
         {
+          path: '/user',
+          name: 'UserHome',
+          component: () => import('@/pages/UserPage.vue'),
+        },
+        // School
+        {
           path: '/class',
           name: 'ClassHome',
           component: () => import('@/pages/school/ClassPage.vue'),
@@ -24,10 +30,11 @@ const router = createRouter({
           name: 'SubjectHome',
           component: () => import('@/pages/school/SubjectPage.vue'),
         },
+        // Property
         {
-          path: '/user',
-          name: 'UserHome',
-          component: () => import('@/pages/school/UserPage.vue'),
+          path: '/property',
+          name: 'PropertyHome',
+          component: () => import('@/pages/property/PropertyPage.vue'),
         },
       ],
     },

@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    isSchoolApp: true,
+    isSchoolApp: false,
   }),
   getters: {
     appTitile (state) {

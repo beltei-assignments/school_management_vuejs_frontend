@@ -5,4 +5,5 @@ export const FORM_RULES = {
     || /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v)
     || 'Please enter a valid email',
   min: (min, v) => v.length >= min || `Minimum length is ${min} characters`,
+  minNumber: (min, v) => v >= min || `Minimum is ${min}`,
 }

@@ -4,12 +4,20 @@ import http from '@/utils/http'
 export const useUserStore = defineStore('user', {
   state: () => ({
     users: [],
+    userOwners: [],
   }),
   actions: {
     async fetchUsers (params) {
       const { data } = await http.get('/users', { params })
 
       this.users = data.rows
+
+      return data
+    },
+    async fetchUserOwners (params) {
+      const { data } = await http.get('/users', { params })
+
+      this.userOwners = data.rows
 
       return data
     },
