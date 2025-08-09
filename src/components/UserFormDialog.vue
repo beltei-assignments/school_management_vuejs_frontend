@@ -45,7 +45,7 @@
                 class="text-black"
                 clearable
                 density="comfortable"
-                placeholder="Password"
+                :label="isCreated ? 'Password *' : 'Password'"
                 :rules="[isCreated ? FORM_RULES.required: true]"
                 :type="showPassword ? 'text' : 'password'"
                 variant="outlined"

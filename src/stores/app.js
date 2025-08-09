@@ -30,6 +30,11 @@ export const useAppStore = defineStore('app', {
             icon: 'mdi-book-open-variant-outline',
           },
           {
+            link: '/schedule',
+            title: 'Schedule',
+            icon: 'mdi-clock-time-four-outline',
+          },
+          {
             link: '/user',
             title: 'User',
             icon: 'mdi-account-group-outline',

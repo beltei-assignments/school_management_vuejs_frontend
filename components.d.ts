@@ -17,6 +17,7 @@ declare module 'vue' {
     PropertyFormDialog: typeof import('./src/components/PropertyFormDialog.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ScheduleFormDialog: typeof import('./src/components/ScheduleFormDialog.vue')['default']
     SubjectFormDialog: typeof import('./src/components/SubjectFormDialog.vue')['default']
     UserFormDialog: typeof import('./src/components/UserFormDialog.vue')['default']
   }
