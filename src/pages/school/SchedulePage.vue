@@ -102,6 +102,9 @@
         :items-per-page-options="[10, 20, 50, 100]"
         @update:options="search"
       >
+        <template #[`item.scheduleId`]="{ item }">
+          {{ getId(item) }}
+        </template>
         <template #[`item.teacherName`]="{ item }">
           {{ item.teacher.first_name }} {{ item.teacher.last_name }}
         </template>
@@ -122,7 +125,7 @@
             color="error"
             icon="mdi-delete"
             variant="text"
-            @click="onDelete(item.id)"
+            @click="onDelete(item)"
           />
         </template>
       </DataTable>
@@ -155,7 +158,7 @@
   const headers = ref([
     {
       title: 'Identifier',
-      key: 'id',
+      key: 'scheduleId',
       sortable: false,
     },
     { title: 'Class', key: 'class_.name', sortable: false },
@@ -185,6 +188,9 @@
     await fetchSubjects()
     await fetchUsers({ role_id: 2 })
   })
+  const getId = item => {
+    return item.schedules[0]?.id || ''
+  }
   const getDay = item => {
     return item.schedules[0]?.day_of_week
   }
@@ -212,7 +218,8 @@
     isShowDialog.value = true
   }
   const onEdit = item => {
-    const { id, class_id, subject_id, teacher_id, schedules } = item
+    const { class_id, subject_id, teacher_id, schedules } = item
+    const id = schedules[0].id
     editItem.value = {
       id, class_id, subject_id, teacher_id,
       day_of_week: schedules[0]?.day_of_week || null,
@@ -221,7 +228,8 @@
     }
     isShowDialog.value = true
   }
-  const onDelete = id => {
+  const onDelete = item => {
+    const id = item.schedules[0].id
     instance.root.$confirm({
       title: 'Confirm delete',
       msg: 'Are you sure to delete?',

@@ -19,7 +19,6 @@
 
 <script setup>
   import _ from 'lodash'
-  import { defineProps } from 'vue'
   const props = defineProps({
     headers: {
       type: Array,

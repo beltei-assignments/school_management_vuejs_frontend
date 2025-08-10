@@ -35,6 +35,11 @@ export const useAppStore = defineStore('app', {
             icon: 'mdi-clock-time-four-outline',
           },
           {
+            link: '/report',
+            title: 'Progress report',
+            icon: 'mdi-account-school-outline',
+          },
+          {
             link: '/user',
             title: 'User',
             icon: 'mdi-account-group-outline',

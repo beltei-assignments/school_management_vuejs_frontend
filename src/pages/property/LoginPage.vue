@@ -87,6 +87,9 @@
     const { valid } = await form.value.validate()
     if (!valid) return
 
+    localStorage.setItem('isSchoolApp', false)
+    setIsSchoolApp(false)
+
     try {
       loading.value = true
       const { data } = await login(credentials)
