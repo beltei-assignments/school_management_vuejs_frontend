@@ -10,6 +10,14 @@
             <v-col cols="5">
               <v-row dense>
                 <v-col cols="12">
+                  <v-file-upload
+                    v-model="form.image"
+                    clearable
+                    density="compact"
+                    title="Drag and drop photo here"
+                  />
+                </v-col>
+                <v-col cols="12">
                   <v-text-field
                     v-model="form.title"
                     clearable
@@ -183,6 +191,7 @@
   const instance = getCurrentInstance()
   const formRef = ref(null)
   const form = ref({
+    image: null,
     title: props.form?.title || '',
     description: props.form?.description || '',
     price: props.form?.price || null,

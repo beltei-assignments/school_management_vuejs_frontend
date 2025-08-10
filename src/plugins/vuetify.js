@@ -4,6 +4,7 @@ import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 import { createRulesPlugin } from 'vuetify/labs/rules'
 import { VDateInput } from 'vuetify/labs/VDateInput'
+import { VFileUpload } from 'vuetify/labs/VFileUpload'
 import { VIconBtn } from 'vuetify/labs/VIconBtn'
 
 // Styles
@@ -27,6 +28,7 @@ export const vuetify = createVuetify({
   components: {
     VIconBtn,
     VDateInput,
+    VFileUpload,
     ...components,
   },
   directives,

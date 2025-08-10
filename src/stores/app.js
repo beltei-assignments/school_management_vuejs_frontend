@@ -51,7 +51,7 @@ export const useAppStore = defineStore('app', {
         {
           link: '/property',
           title: 'Property',
-          icon: 'mdi-home-city',
+          icon: 'mdi-office-building-marker-outline',
         },
         {
           link: '/user',

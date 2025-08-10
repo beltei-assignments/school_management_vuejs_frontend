@@ -106,6 +106,15 @@
         :items-per-page-options="[10, 20, 50, 100]"
         @update:options="search"
       >
+        <template #[`item.photo`]="{ item }">
+          <v-img
+            aspect-ratio="16/9"
+            class="my-2"
+            :height="150"
+            :src="item.image ? getImageURL(item.image) : realEstateLogo"
+            :width="150"
+          />
+        </template>
         <template #[`item.typeProperty`]="{ item }">
           <v-chip color="warning" variant="flat">
             {{ item.type }}
@@ -146,14 +155,21 @@
 </template>
 
 <script setup>
+  import realEstateLogo from '@/assets/images/real-estate-logo.jpg'
   import PropertyFormDialog from '@/components/PropertyFormDialog.vue'
   import { usePropertyStore, useUserStore } from '@/stores'
   const { fetchProperties, deleteProperty } = usePropertyStore()
   const { fetchUsers } = useUserStore()
+  const PROPERTY_BASE_URL = import.meta.env.VUE_APP_PROPERTY_BASE_URL || 'http://localhost:8080'
 
   const instance = getCurrentInstance()
   const { properties } = storeToRefs(usePropertyStore())
   const headers = ref([
+    {
+      title: 'Photo',
+      key: 'photo',
+      sortable: false,
+    },
     {
       title: 'Identifier',
       key: 'id',
@@ -188,6 +204,9 @@
     await fetchUsers({ role_id: 2 })
   })
 
+  const getImageURL = url => {
+    return PROPERTY_BASE_URL + url
+  }
   const search = async () => {
     const { page, itemsPerPage: limit } = options.value
     const { price_from, price_to, ...filters } = filter.value

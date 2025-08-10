@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router/auto'
+import { guard } from '@/common/auth/guard'
 import authRoutes from './auth'
 
 const router = createRouter({
@@ -8,6 +9,7 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/common/views/AppLayout.vue'),
+      meta: { isSecure: true },
       children: [
         {
           path: '/home',
@@ -50,5 +52,7 @@ const router = createRouter({
     },
   ],
 })
+
+router.beforeEach(guard)
 
 export default router

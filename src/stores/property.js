@@ -20,10 +20,14 @@ export const usePropertyStore = defineStore('property', {
       return data
     },
     async createProperty (payload) {
-      await http.post('/properties', payload)
+      await http.post('/properties', payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
     },
     async updateProperty (id, payload) {
-      await http.put(`/properties/${id}`, payload)
+      await http.put(`/properties/${id}`, payload, { headers: { 'Content-Type': 'multipart/form-data' } })
     },
     async deleteProperty (id) {
       await http.delete(`/properties/${id}`)
