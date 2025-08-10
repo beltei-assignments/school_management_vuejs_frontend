@@ -35,6 +35,11 @@ const router = createRouter({
           name: 'ScheduleHome',
           component: () => import('@/pages/school/SchedulePage.vue'),
         },
+        {
+          path: '/report',
+          name: 'ReportHome',
+          component: () => import('@/pages/school/ReportPage.vue'),
+        },
         // Property
         {
           path: '/property',

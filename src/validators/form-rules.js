@@ -6,4 +6,5 @@ export const FORM_RULES = {
     || 'Please enter a valid email',
   min: (min, v) => v.length >= min || `Minimum length is ${min} characters`,
   minNumber: (min, v) => v >= min || `Minimum is ${min}`,
+  maxNumber: (max, v) => v <= max || `Maximun is ${max}`,
 }
