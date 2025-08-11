@@ -110,6 +110,7 @@
           />
           <v-icon-btn
             color="error"
+            :disabled="item.user.id == user?.id"
             icon="mdi-delete"
             variant="text"
             @click="onDelete(item.user.id)"
@@ -164,6 +165,8 @@
   })
   const isShowDialog = ref(false)
   const editItem = ref(null)
+  const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
+  console.log(user)
 
   onMounted(async () => {
     await fetchRoles()

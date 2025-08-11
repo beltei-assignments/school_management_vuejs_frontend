@@ -46,24 +46,25 @@
               @update:model-value="search"
             />
           </v-col>
-          <v-col cols="12" sm="3">
+          <v-col cols="12" sm="2">
+            <v-select
+              v-model="filter.type"
+              clearable
+              density="compact"
+              hide-details="auto"
+              :items="types"
+              label="Type"
+              variant="outlined"
+              @update:model-value="search"
+            />
+          </v-col>
+          <v-col cols="12" sm="2">
             <v-text-field
               v-model="filter.search"
               clearable
               density="compact"
               hide-details="auto"
               label="Search"
-              variant="outlined"
-              @update:model-value="search"
-            />
-          </v-col>
-          <v-col cols="12" sm="3">
-            <v-text-field
-              v-model="filter.location"
-              clearable
-              density="compact"
-              hide-details="auto"
-              label="Location"
               variant="outlined"
               @update:model-value="search"
             />
@@ -88,6 +89,29 @@
               hide-details="auto"
               label="Price to"
               type="number"
+              variant="outlined"
+              @update:model-value="search"
+            />
+          </v-col>
+          <v-col cols="12" sm="2">
+            <v-select
+              v-model="filter.status"
+              clearable
+              density="compact"
+              hide-details="auto"
+              :items="statuses"
+              label="Status"
+              variant="outlined"
+              @update:model-value="search"
+            />
+          </v-col>
+          <v-col cols="12" sm="2">
+            <v-text-field
+              v-model="filter.location"
+              clearable
+              density="compact"
+              hide-details="auto"
+              label="Location"
               variant="outlined"
               @update:model-value="search"
             />
@@ -163,7 +187,7 @@
   const PROPERTY_BASE_URL = import.meta.env.VUE_APP_PROPERTY_BASE_URL || 'http://localhost:8080'
 
   const instance = getCurrentInstance()
-  const { properties } = storeToRefs(usePropertyStore())
+  const { properties, types, statuses } = storeToRefs(usePropertyStore())
   const headers = ref([
     {
       title: 'Photo',
@@ -185,6 +209,8 @@
   ])
   const filter = ref({
     id: null,
+    type: '',
+    status: '',
     search: '',
     location: '',
     price_from: null,
@@ -217,6 +243,8 @@
   const clearFilter = async () => {
     filter.value = {
       id: null,
+      type: '',
+      status: '',
       search: '',
       location: '',
       price_from: null,
