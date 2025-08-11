@@ -9,6 +9,13 @@
           <v-row dense>
             <v-col cols="5">
               <v-row dense>
+                <v-col v-if="!isCreated" cols="12">
+                  <v-img
+                    cover
+                    :height="350"
+                    :src="getImageURL()"
+                  />
+                </v-col>
                 <v-col cols="12">
                   <v-file-upload
                     v-model="form.image"
@@ -169,6 +176,7 @@
   import OwnerFormDialog from '@/components/property/OwnerFormDialog.vue'
   import { usePropertyStore, useUserStore } from '@/stores/index.js'
   import { FORM_RULES } from '@/validators/form-rules.js'
+  const PROPERTY_BASE_URL = import.meta.env.VUE_APP_PROPERTY_BASE_URL || 'http://localhost:8080'
 
   const { createProperty, updateProperty, fetchOwners, deleteOwner, setOwners } = usePropertyStore()
   const { statuses, types, owners } = storeToRefs(usePropertyStore())
@@ -225,6 +233,9 @@
   const editItem = ref(null)
 
   // method
+  const getImageURL = () => {
+    return PROPERTY_BASE_URL + props.form.image
+  }
   const loadOwners = async () => {
     if (isCreated.value) {
       return setOwners([])
