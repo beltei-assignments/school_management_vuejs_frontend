@@ -112,8 +112,8 @@
 
   // method
   onMounted(async () => {
-    await fetchSubjects()
-    await fetchUsers({ role_id: 4 })
+    await fetchSubjects({ limit: 100 })
+    await fetchUsers({ role_id: 4, limit: 100 })
   })
   const close = () => {
     emit('update:modelValue', false)

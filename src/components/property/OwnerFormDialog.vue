@@ -103,7 +103,7 @@
 
   // method
   onMounted(async () => {
-    await fetchUserOwners()
+    await fetchUserOwners({ limit: 100 })
   })
   const close = () => {
     emit('update:modelValue', false)

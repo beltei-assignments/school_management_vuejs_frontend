@@ -141,7 +141,6 @@
 </template>
 
 <script setup>
-  import { format } from 'date-fns'
   import ScheduleFormDialog from '@/components/ScheduleFormDialog.vue'
   import { useClassStore, useScheduleStore, useSubjectStore, useUserStore } from '@/stores'
 
@@ -184,9 +183,9 @@
   const isShowDialog = ref(false)
   const editItem = ref(null)
   onMounted(async () => {
-    await fetchClasses()
-    await fetchSubjects()
-    await fetchUsers({ role_id: 2 })
+    await fetchClasses({ limit: 100 })
+    await fetchSubjects({ limit: 100 })
+    await fetchUsers({ role_id: 2, limit: 100 })
   })
   const getId = item => {
     return item.schedules[0]?.id || ''
@@ -196,7 +195,22 @@
   }
   const getTime = item => {
     const { start_time, end_time } = item.schedules[0]
-    return `${format(new Date(start_time), 'hh:mm')} to ${format(new Date(end_time), 'hh:mm')}`
+
+    const startDate = new Date(start_time.replace(' ', 'T')) // make it ISO format
+    const startTime = startDate.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    })
+
+    const endDate = new Date(end_time.replace(' ', 'T')) // make it ISO format
+    const endTime = endDate.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true,
+    })
+
+    return `${startTime} to ${endTime}`
   }
   const search = async () => {
     const { page, itemsPerPage: limit } = options.value
@@ -220,11 +234,12 @@
   const onEdit = item => {
     const { class_id, subject_id, teacher_id, schedules } = item
     const id = schedules[0].id
+
     editItem.value = {
       id, class_id, subject_id, teacher_id,
       day_of_week: schedules[0]?.day_of_week || null,
-      start_time: schedules[0]?.start_time ? format(new Date(schedules[0].start_time), 'hh:mm') : null,
-      end_time: schedules[0]?.end_time ? format(new Date(schedules[0].end_time), 'hh:mm') : null,
+      start_time: schedules[0]?.start_time ? new Date(schedules[0].start_time).toTimeString().slice(0, 5) : null,
+      end_time: schedules[0]?.end_time ? new Date(schedules[0].end_time).toTimeString().slice(0, 5) : null,
     }
     isShowDialog.value = true
   }

@@ -166,10 +166,9 @@
   const isShowDialog = ref(false)
   const editItem = ref(null)
   const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : {}
-  console.log(user)
 
   onMounted(async () => {
-    await fetchRoles()
+    await fetchRoles({ limit: 100 })
   })
 
   const search = async () => {

@@ -227,7 +227,7 @@
   const editItem = ref(null)
 
   onMounted(async () => {
-    await fetchUsers({ role_id: 2 })
+    await fetchUsers({ role_id: 2, limit: 100 })
   })
 
   const getImageURL = url => {
