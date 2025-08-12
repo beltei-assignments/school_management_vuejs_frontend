@@ -37,6 +37,7 @@
                 <v-col cols="6">
                   <v-select
                     v-model="form.type"
+                    class="text-capitalize"
                     clearable
                     density="comfortable"
                     hide-details="auto"
@@ -51,7 +52,7 @@
                     v-model="form.price"
                     clearable
                     density="comfortable"
-                    label="Price *"
+                    label="Price ($) *"
                     :rules="[FORM_RULES.required, (v)=> FORM_RULES.minNumber(1, v)]"
                     type="number"
                     variant="outlined"
@@ -60,6 +61,7 @@
                 <v-col cols="6">
                   <v-select
                     v-model="form.status"
+                    class="text-capitalize"
                     clearable
                     density="comfortable"
                     :items="statuses"
@@ -84,9 +86,10 @@
                 <v-col cols="12">
                   <v-textarea
                     v-model="form.location"
-                    label="Location"
+                    label="Location *"
                     row-height="25"
                     rows="2"
+                    :rules="[FORM_RULES.required]"
                     variant="outlined"
                   />
                 </v-col>

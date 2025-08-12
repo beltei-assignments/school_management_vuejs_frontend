@@ -49,6 +49,7 @@
           <v-col cols="12" sm="2">
             <v-select
               v-model="filter.type"
+              class="text-capitalize"
               clearable
               density="compact"
               hide-details="auto"
@@ -75,7 +76,7 @@
               clearable
               density="compact"
               hide-details="auto"
-              label="Price from"
+              label="Price from ($)"
               type="number"
               variant="outlined"
               @update:model-value="search"
@@ -87,7 +88,7 @@
               clearable
               density="compact"
               hide-details="auto"
-              label="Price to"
+              label="Price to ($)"
               type="number"
               variant="outlined"
               @update:model-value="search"
@@ -96,6 +97,7 @@
           <v-col cols="12" sm="2">
             <v-select
               v-model="filter.status"
+              class="text-capitalize"
               clearable
               density="compact"
               hide-details="auto"
@@ -105,7 +107,7 @@
               @update:model-value="search"
             />
           </v-col>
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="4">
             <v-text-field
               v-model="filter.location"
               clearable
@@ -140,12 +142,15 @@
           />
         </template>
         <template #[`item.typeProperty`]="{ item }">
-          <v-chip color="warning" variant="flat">
+          <v-chip class="text-capitalize" color="warning" variant="flat">
             {{ item.type }}
           </v-chip>
         </template>
+        <template #[`item.propertyPrice`]="{ item }">
+          <span class="font-weight-bold">$ {{ Number(item.price).toFixed(2) }}</span>
+        </template>
         <template #[`item.statusProperty`]="{ item }">
-          <v-chip color="primary" variant="flat">
+          <v-chip class="text-capitalize" color="primary" variant="flat">
             {{ item.status }}
           </v-chip>
         </template>
@@ -190,7 +195,7 @@
   const { properties, types, statuses } = storeToRefs(usePropertyStore())
   const headers = ref([
     {
-      title: 'Photo',
+      title: '',
       key: 'photo',
       sortable: false,
     },
@@ -201,7 +206,7 @@
     },
     { title: 'Type', key: 'typeProperty', sortable: false },
     { title: 'Title', key: 'title', sortable: false },
-    { title: 'Price', key: 'price', sortable: false },
+    { title: 'Price', key: 'propertyPrice', sortable: false },
     { title: 'Status', key: 'statusProperty', sortable: false },
     { title: 'Location', key: 'location', sortable: false },
     { title: 'Manager', key: 'managerName', sortable: false },
