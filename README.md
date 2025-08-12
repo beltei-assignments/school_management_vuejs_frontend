@@ -4,7 +4,7 @@
 
 Before you begin, ensure you have met the following requirements:
 
-- NODE >= 24.5.0
+- NODE >= 20.0.0
 - Node.js & npm
 
 ## Installation 🧨🧨
