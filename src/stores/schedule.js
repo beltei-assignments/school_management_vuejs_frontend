@@ -22,6 +22,9 @@ export const useScheduleStore = defineStore('schedule', {
 
       return data
     },
+    async checkSchedule (params) {
+      return http.get('/schedules/check_schedule/', { params })
+    },
     async createSchedule (payload) {
       await http.post('/schedules', payload)
     },

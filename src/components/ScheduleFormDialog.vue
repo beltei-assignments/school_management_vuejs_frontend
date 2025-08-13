@@ -126,7 +126,7 @@
   import { useClassStore, useScheduleStore, useSubjectStore, useUserStore } from '@/stores'
   import { FORM_RULES } from '@/validators/form-rules.js'
 
-  const { createSchedule, updateSchedule } = useScheduleStore()
+  const { createSchedule, updateSchedule, checkSchedule } = useScheduleStore()
   const { fetchClasses } = useClassStore()
   const { fetchSubjects } = useSubjectStore()
   const { fetchUsers } = useUserStore()
@@ -176,7 +176,8 @@
 
     if (!valid) return
 
-    const { day_of_week, start_time, end_time, ...data } = form.value
+    const { day_of_week, start_time, end_time, teacher_id, ...data } = form.value
+
     // Create Date objects for today
     const startDate = new Date()
     const endDate = new Date()
@@ -189,8 +190,8 @@
     startDate.setUTCHours(startHours, startMinutes, 0, 0)
     endDate.setUTCHours(endHours, endMinutes, 0, 0)
 
-    const paylaod = {
-      ...data,
+    const payload = {
+      teacher_id,
       schedules: [
         {
           day_of_week,
@@ -198,10 +199,31 @@
           end_time: endDate,
         },
       ],
+      ...data,
     }
 
+    const { data: { is_found } } = await checkSchedule({
+      teacher_id,
+      day_of_week,
+      ...(props?.form?.id && { not_schedule_id: props.form.id }),
+    })
+
+    if (is_found) {
+      instance.root.$confirm({
+        title: 'Confirm schedule',
+        msg: 'Do you want to assign teacher in the same day?',
+        options: { type: 'warning' },
+        agree: async () => {
+          await submit(payload)
+        },
+      })
+    } else {
+      await submit(payload)
+    }
+  }
+  const submit = async payload => {
     try {
-      await (isCreated.value ? createSchedule(paylaod) : updateSchedule(props.form.id, paylaod))
+      await (isCreated.value ? createSchedule(payload) : updateSchedule(props.form.id, payload))
       instance.root.$notif('Successful saved', { type: 'success' })
 
       emit('load')
